@@ -9,6 +9,9 @@ import SwiftUI
 
 struct OnboardingView: View {
 
+    @State
+    private var isAnimating: Bool = false
+
 
     var body: some View {
         ZStack {
@@ -18,10 +21,16 @@ struct OnboardingView: View {
             VStack(alignment: .center, spacing: 20) {
                 Spacer()
                 Header()
+                    .opacity(isAnimating ? 1 : 0)
+                    .offset(y: isAnimating ? 0 : -40)
+                    .animation(.easeInOut(duration: 1), value: isAnimating)
                 Center()
                 Spacer()
                 Footer()
             }
+        }
+        .onAppear {
+            isAnimating = true
         }
     }
 }
